@@ -19,6 +19,9 @@
 		06DFA2B61F096CBA0009A530 /* torpedo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06DFA2B31F0968BD0009A530 /* torpedo.mp3 */; };
 		06FA0DB61EE7628F0051FC68 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FA0DB51EE7628F0051FC68 /* Ship.swift */; };
 		06FA0DB81EE763F50051FC68 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FA0DB71EE763F50051FC68 /* Bullet.swift */; };
+		4DB903CB1F2822AE004E4F1B /* secondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB903CA1F2822AE004E4F1B /* secondViewController.swift */; };
+		4DB903CD1F2822C5004E4F1B /* thirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB903CC1F2822C5004E4F1B /* thirdViewController.swift */; };
+		4DB903CF1F2822D8004E4F1B /* fourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB903CE1F2822D8004E4F1B /* fourthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		06DFA2B31F0968BD0009A530 /* torpedo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = torpedo.mp3; sourceTree = "<group>"; };
 		06FA0DB51EE7628F0051FC68 /* Ship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
 		06FA0DB71EE763F50051FC68 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		4DB903CA1F2822AE004E4F1B /* secondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondViewController.swift; sourceTree = "<group>"; };
+		4DB903CC1F2822C5004E4F1B /* thirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thirdViewController.swift; sourceTree = "<group>"; };
+		4DB903CE1F2822D8004E4F1B /* fourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fourthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,9 @@
 			children = (
 				06C51BE71EE68B41006AC09A /* AppDelegate.swift */,
 				06C51BEB1EE68B41006AC09A /* ViewController.swift */,
+				4DB903CA1F2822AE004E4F1B /* secondViewController.swift */,
+				4DB903CC1F2822C5004E4F1B /* thirdViewController.swift */,
+				4DB903CE1F2822D8004E4F1B /* fourthViewController.swift */,
 				06325E361EE8420E00F0D093 /* spark.png */,
 				06325E371EE8420E00F0D093 /* explosion.scnp */,
 				06FA0DB71EE763F50051FC68 /* Bullet.swift */,
@@ -120,7 +129,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 06C51BDF1EE68B41006AC09A /* Build configuration list for PBXProject "ARViewer" */;
+			buildConfigurationList = 06C51BDF1EE68B41006AC09A /* Build configuration list for PBXProject "ARViewer-new" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -163,7 +172,10 @@
 			files = (
 				06C51BEC1EE68B41006AC09A /* ViewController.swift in Sources */,
 				06FA0DB61EE7628F0051FC68 /* Ship.swift in Sources */,
+				4DB903CF1F2822D8004E4F1B /* fourthViewController.swift in Sources */,
+				4DB903CD1F2822C5004E4F1B /* thirdViewController.swift in Sources */,
 				06C51BE81EE68B41006AC09A /* AppDelegate.swift in Sources */,
+				4DB903CB1F2822AE004E4F1B /* secondViewController.swift in Sources */,
 				06FA0DB81EE763F50051FC68 /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,10 +313,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4EU7KH7ZUS;
+				DEVELOPMENT_TEAM = Y3YZ3D5DKG;
 				INFOPLIST_FILE = ARViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Faris-Sbahi.ARViewer";
+				PRODUCT_BUNDLE_IDENTIFIER = "test-1-3.ARViewer-new";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -315,10 +327,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4EU7KH7ZUS;
+				DEVELOPMENT_TEAM = Y3YZ3D5DKG;
 				INFOPLIST_FILE = ARViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Faris-Sbahi.ARViewer";
+				PRODUCT_BUNDLE_IDENTIFIER = "test-1-3.ARViewer-new";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -328,7 +340,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		06C51BDF1EE68B41006AC09A /* Build configuration list for PBXProject "ARViewer" */ = {
+		06C51BDF1EE68B41006AC09A /* Build configuration list for PBXProject "ARViewer-new" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				06C51BF61EE68B41006AC09A /* Debug */,

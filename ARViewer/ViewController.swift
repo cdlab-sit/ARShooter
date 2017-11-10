@@ -19,19 +19,37 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     @IBOutlet weak var scoreLabel: UILabel!
     
     var player: AVAudioPlayer!
+    //時間計測用の変数.
+    var cnt : Float = 0
+    //時間表示用のラベル.
+    var myLabel : UILabel!
     
     private var userScore: Int = 0 {
         didSet {
             // ensure UI update runs on main thread
             DispatchQueue.main.async {
                 self.scoreLabel.text = String(self.userScore)
-            }
+            } 
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "screenTrans" {
+            let Send = segue.destination as! secondViewController
+            Send.myTime = sender as! String
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+ /*       while(self.count >= 0){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+               // label.text = String(self.count)
+                self.count = self.count - 1
+            }
+        }
+ */
         // Set the view's delegate
         sceneView.delegate = self
         
@@ -48,6 +66,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         self.addNewShip()
         
         self.userScore = 0
+        
+        //ラベルを作る.
+        myLabel = UILabel(frame: CGRect(x:0,y:0,width:200,height:100))
+        myLabel.backgroundColor = UIColor.orange
+        myLabel.layer.masksToBounds = true
+        myLabel.layer.cornerRadius = 20.0
+        myLabel.text = "Time:\(cnt)"
+        myLabel.font = UIFont.systemFont(ofSize:40)
+        myLabel.textColor = UIColor.white
+        myLabel.shadowColor = UIColor.gray
+        myLabel.textAlignment = NSTextAlignment.center
+        myLabel.layer.position = CGPoint(x: self.view.bounds.width/2 + 200 ,y: 900)
+        self.view.backgroundColor = UIColor.cyan
+        self.view.addSubview(myLabel)
+        //タイマーを生成して実行
+         Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.onUpdate(timer:)), userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +112,24 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         return node
     }
 */
+    //時間計測関数
+    @objc func onUpdate(timer : Timer){
+        
+        cnt = cnt + 0.1
+        //桁数を指定して文字列を作る.
+        let str = "Time:".appendingFormat("%.1f",cnt)
+        myLabel.text = str
+        if self.userScore == 5{            //画面遷移の文を書く
+            /*
+             let storyboard: UIStoryboard = self.storyboard!
+             let nextView = storyboard.instantiateViewController(withIdentifier: "NextView")
+             present(nextView, animated: true, completion: nil)
+             */
+            timer.invalidate()
+            self.performSegue(withIdentifier:  "screenTrans" ,sender: String(self.cnt))
+        }
+        
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -119,8 +171,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     // MARK: - Actions
     
     @IBAction func didTapScreen(_ sender: UITapGestureRecognizer) { // fire bullet in direction camera is facing
-        
+    
         // Play torpedo sound when bullet is launched
+        
+        
         
         self.playSoundEffect(ofType: .torpedo)
         
@@ -138,17 +192,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     // MARK: - Game Functionality
     
     func configureSession() {
-        if ARWorldTrackingConfiguration.isSupported { // checks if user's device supports the more precise ARWorldTrackingSessionConfiguration
+        if ARWorldTrackingSessionConfiguration.isSupported { // checks if user's device supports the more precise ARWorldTrackingSessionConfiguration
                                                             // equivalent to `if utsname().hasAtLeastA9()`
         // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = ARWorldTrackingConfiguration.PlaneDetection.horizontal
+        let configuration = ARWorldTrackingSessionConfiguration()
+        configuration.planeDetection = ARWorldTrackingSessionConfiguration.PlaneDetection.horizontal
         
         // Run the view's session
         sceneView.session.run(configuration)
         } else {
             // slightly less immersive AR experience due to lower end processor
-            let configuration = AROrientationTrackingConfiguration()
+            let configuration = ARSessionConfiguration()
             
             // Run the view's session
             sceneView.session.run(configuration)
@@ -158,9 +212,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     func addNewShip() {
         let cubeNode = Ship()
         
-        let posX = floatBetween(-0.5, and: 0.5)
-        let posY = floatBetween(-0.5, and: 0.5  )
-        cubeNode.position = SCNVector3(posX, posY, -1) // SceneKit/AR coordinates are in meters
+        let posX = floatBetween(-2.0, and: 2.0)
+        let posY = floatBetween(-2.0, and: 2.0)
+        var posz : Float = 0.0
+        while true{
+            posz = floatBetween(-3.0, and: 3.0)
+            if(Int(posz) != 0){
+                break
+            }
+        }
+        print (posz)
+        print (Int(posz))
+        cubeNode.position = SCNVector3(posX, posY, posz) // SceneKit/AR coordinates are in meters
         sceneView.scene.rootNode.addChildNode(cubeNode)
     }
     
@@ -193,7 +256,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             let mat = SCNMatrix4(frame.camera.transform) // 4x4 transform matrix describing camera in world space
             let dir = SCNVector3(-1 * mat.m31, -1 * mat.m32, -1 * mat.m33) // orientation of camera in world space
             let pos = SCNVector3(mat.m41, mat.m42, mat.m43) // location of camera in world space
-            
+            //ゲーム画面でこれを起動したい
+        
             return (dir, pos)
         }
         return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
@@ -217,8 +281,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
                 self.removeNodeWithAnimation(contact.nodeA, explosion: true)
                 self.addNewShip()
             })
-            
         }
+       // self.count = self.count - 1
     }
     
     // MARK: - Sound Effects
@@ -241,13 +305,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             }
         }
     }
-    
 }
 
 struct CollisionCategory: OptionSet {
     let rawValue: Int
     
-    static let bullets  = CollisionCategory(rawValue: 1 << 0) // 00...01
+    static let bullets  = CollisionCategory(rawValue: 10 << 0) // 00...01
     static let ship = CollisionCategory(rawValue: 1 << 1) // 00..10
 }
 
@@ -274,3 +337,4 @@ enum SoundEffect: String {
     case collision = "collision"
     case torpedo = "torpedo"
 }
+

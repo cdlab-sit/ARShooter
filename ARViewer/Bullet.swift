@@ -13,7 +13,7 @@ import SceneKit
 class Bullet: SCNNode {
     override init () {
         super.init()
-        let sphere = SCNSphere(radius: 0.025)
+        let sphere = SCNSphere(radius: 0.01)
         self.geometry = sphere
         let shape = SCNPhysicsShape(geometry: sphere, options: nil)
         self.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
